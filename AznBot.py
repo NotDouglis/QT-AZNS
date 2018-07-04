@@ -1,6 +1,7 @@
 #Imports
 import discord
 import asyncio
+import random
 from discord.ext import commands
 
 #Initialize
@@ -19,6 +20,26 @@ async def SexCommand():
     await bot.say('SEX')
     asyncio.sleep(1)
 
+@bot.command()
+async def CoinFlip():
+    
+    Result = ""
+    RandomNumber = random.randint(0,1)
+
+    if(RandomNumber == 0):
+        Result = "Heads"
+    elif(RandomNumber == 1):
+        Result = "Tails"
+    await bot.say(Result)
+    
+@bot.command()
+async def Message(msg):
+    await bot.say(msg)
+    
+@bot.command()
+async def RNG(MinNumber: int , MaxNumber: int):
+    RandomNumber = random.randint(MinNumber,MaxNumber)
+    await bot.say(str(RandomNumber))
     
 #Code to connect py with bot
 bot.run('NDYzOTI2NTU5OTE3NjA0ODY0.Dh3sng.0awcnUd5UQbQ201arZVkllA980c')
