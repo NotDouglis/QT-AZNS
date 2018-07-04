@@ -3,6 +3,7 @@ import discord
 import asyncio
 import random
 import requests
+import urllib3
 from bs4 import BeautifulSoup
 from discord.ext import commands
 
@@ -22,6 +23,17 @@ async def wWikipedia(msg):
         printstr = (i+1, " : ", allTexts[i])
         await bot.say(printstr)
 
+@bot.command()
+async def wIdol(msg):
+    baseurl = ('https://idol.sankakucomplex.com/?tags=-animated+-video')
+    endurl = ('&commit=Search')
+    fullurl = (baseurl + '+' + msg + endurl)
+    soup = BeautifulSoup(fullurl)
+    imageurl = ('https://i.imgur.com/UqdEaR0.jpg')
+    embed = discord.Embed(title="QT Azn")
+    embed.set_image(url=imageurl)
+    await bot.say(embed=embed)
+    
 #Memes
 @bot.command()
 async def mP():
@@ -61,9 +73,9 @@ async def Help():
     #Title
     embed = discord.Embed(title="Help")
     #Help
-    embed.add_field(name="Meme Commands",value="mP   --> Points the classical pointy finger at your target\nmSex --> Spells out the classical SEX meme")
-    embed.add_field(name="Random/Test Commands",value="rCoin --> Flips a coin, heads or tails, buddy.\nrRng  --> Generates a random number between the provided integers\n     Parameters --> MinNumber: int\n                --> MaxNumber: int")
-    embed.add_field(name="Webcrawling Commands",value="wWikipedia --> Takes data from the given article\n     Parameters --> ArticleName: str")
+    embed.add_field(name="Meme Commands",value="mP-->Points the classical pointy finger at your target\nmSex-->Spells out the classical SEX meme")
+    embed.add_field(name="Random/Test Commands",value="rCoin-->Flips a coin, heads or tails, buddy.\nrRng(MinNumber, MaxNumber)-->Generates a random number between the provided integers")
+    embed.add_field(name="Webcrawling Commands",value="wWikipedia(ArticleName)-->Takes data from the given article")
     await bot.say(embed=embed)
 
 #Code to connect py with bot
