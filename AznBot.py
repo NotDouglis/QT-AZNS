@@ -3,9 +3,11 @@ import discord
 import asyncio
 import random
 import requests
-import urllib3
+import urllib
 from bs4 import BeautifulSoup
 from discord.ext import commands
+from urllib.request import urlopen
+
 
 #Initialize
 client = discord.Client()#Creates Client
@@ -28,8 +30,11 @@ async def wIdol(msg):
     baseurl = ('https://idol.sankakucomplex.com/?tags=-animated+-video')
     endurl = ('&commit=Search')
     fullurl = (baseurl + '+' + msg + endurl)
-    soup = BeautifulSoup(fullurl)
-    imageurl = ('https://i.imgur.com/UqdEaR0.jpg')
+    soup = BeautifulSoup(urlopen(fullurl).read())
+    images = []
+    for img in soup.findAll('img'):
+        images.append(img.get('src'))
+    imageurl = (random.choice(images))
     embed = discord.Embed(title="QT Azn")
     embed.set_image(url=imageurl)
     await bot.say(embed=embed)
