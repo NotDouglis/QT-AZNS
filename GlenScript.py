@@ -2,9 +2,12 @@
 # I like structuring python scripts like C
 
 import requests
+from bs4 import BeautifulSoup
 
-def main():
-    page = requests.get('https://dougvace.github.io')
-    print(page.content)
-    
-main()
+def aznCrawl():
+    page = requests.get('http://simple.wikipedia.org')
+    soup = BeautifulSoup(page.content, "lxml")
+    allTexts = soup.find_all('b')
+    print(allTexts)
+
+aznCrawl()
