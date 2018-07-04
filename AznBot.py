@@ -2,6 +2,8 @@
 import discord
 import asyncio
 import random
+import requests
+from bs4 import BeautifulSoup
 from discord.ext import commands
 
 #Initialize
@@ -21,11 +23,18 @@ async def SexCommand():
     asyncio.sleep(1)
 
 @bot.command()
+async def Wikipedia():
+    page = requests.get('http://simple.wikipedia.org')
+    soup = BeautifulSoup(page.content, "lxml")
+    allTexts = soup.find_all('b')
+    for i in range(0, 8):
+        printstr = (i+1, " : ", allTexts[i])
+        await bot.say(printstr)
+        
+@bot.command()
 async def CoinFlip():
-    
     Result = ""
     RandomNumber = random.randint(0,1)
-
     if(RandomNumber == 0):
         Result = "Heads"
     elif(RandomNumber == 1):
