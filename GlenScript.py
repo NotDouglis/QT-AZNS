@@ -8,6 +8,7 @@ def aznCrawl():
     page = requests.get('http://simple.wikipedia.org')
     soup = BeautifulSoup(page.content, "lxml")
     allTexts = soup.find_all('b')
-    print(allTexts)
+    for i in range(0, 8):
+        print(i+1, " : ", allTexts[i])
 
 aznCrawl()
