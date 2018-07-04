@@ -61,9 +61,9 @@ async def Help():
     #Title
     embed = discord.Embed(title="Help")
     #Help
-    embed.add_field(name="Meme Commands",value="mP-->Points the classical pointy finger at your target\nmSex-->Spells out the classical SEX meme")
-    embed.add_field(name="Random/Test Commands",value="rCoin-->Flips a coin, heads or tails, buddy.\nrRng(MinNumber, MaxNumber)-->Generates a random number between the provided integers")
-    embed.add_field(name="Webcrawling Commands",value="wWikipedia(ArticleName)-->Takes data from the given article")
+    embed.add_field(name="Meme Commands",value="mP   --> Points the classical pointy finger at your target\nmSex --> Spells out the classical SEX meme")
+    embed.add_field(name="Random/Test Commands",value="rCoin --> Flips a coin, heads or tails, buddy.\nrRng  --> Generates a random number between the provided integers\n     Parameters --> MinNumber: int\n                --> MaxNumber: int")
+    embed.add_field(name="Webcrawling Commands",value="wWikipedia --> Takes data from the given article\n     Parameters --> ArticleName: str")
     await bot.say(embed=embed)
 
 #Code to connect py with bot
