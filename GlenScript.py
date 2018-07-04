@@ -4,7 +4,7 @@
 import requests
 
 def main():
-    page = requests.get('https://simple.wikipedia.org/wiki/Main_Page')
+    page = requests.get('https://dougvace.github.io')
     print(page.content)
     
 main()
