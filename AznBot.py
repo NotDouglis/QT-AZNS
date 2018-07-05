@@ -76,7 +76,8 @@ async def wIdol(msg):
     pageurl = (random.choice(pagelinks))
     print('-')
     print(pageurl)
-    page = requests.get(fullurl, headers=headers)
+    imageurl = ("https://idol.sankakucomplex.com" + pageurl)
+    page = requests.get(imageurl, headers=headers)
     pagetext = page.text
     soup = BeautifulSoup(pagetext, "lxml")
     links = []
@@ -168,5 +169,3 @@ async def Help():
 
 #Code to connect py with bot
 bot.run('NDYzOTI2NTU5OTE3NjA0ODY0.Dh3sng.0awcnUd5UQbQ201arZVkllA980c')
-    
-
