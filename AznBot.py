@@ -35,9 +35,13 @@ async def wIdol(msg):
     pagetext = page.text
     soup = BeautifulSoup(pagetext, "lxml")
     images = []
-    num = 1
     for img in soup.find_all('img'):
-        images.append(img.get('src'))
+        if(img.get('src').startswith("https://")):
+            pass
+        elif(img.get('src').endswith("logo.png")):
+            pass
+        else:
+            images.append(img.get('src'))           
     imageurl = (random.choice(images))
     fixedimageurl = ("https:"+imageurl)
     print(fixedimageurl)
@@ -84,15 +88,12 @@ async def Help():
     #Title
     embed = discord.Embed(title="Help")
     #Help
-<<<<<<< HEAD
     embed.add_field(name="Meme Commands",value="mP-->Points the classical pointy finger at your target\nmSex-->Spells out the classical SEX meme")
     embed.add_field(name="Random/Test Commands",value="rCoin-->Flips a coin, heads or tails, buddy.\nrRng(MinNumber, MaxNumber)-->Generates a random number between the provided integers")
     embed.add_field(name="Webcrawling Commands",value="wWikipedia(ArticleName)-->Takes data from the given article\nwIdol(TagName)-->Returns a random image from Idol Complex with the given tag")
-=======
     embed.add_field(name="Meme Commands",value="mP   --> Points the classical pointy finger at your target\nmSex --> Spells out the classical SEX meme")
     embed.add_field(name="Random/Test Commands",value="rCoin --> Flips a coin, heads or tails, buddy.\nrRng  --> Generates a random number between the provided integers\n     Parameters --> MinNumber: int\n                --> MaxNumber: int")
     embed.add_field(name="Webcrawling Commands",value="wWikipedia --> Takes data from the given article\n     Parameters --> ArticleName: str")
->>>>>>> 1b938e33775c6b2c976882824a6976446c81ae6e
     await bot.say(embed=embed)
 
 #Code to connect py with bot
