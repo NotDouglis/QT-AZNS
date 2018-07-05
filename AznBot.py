@@ -27,8 +27,10 @@ async def wWikipedia(msg):
 
 @bot.command()
 async def wIdol(msg):
-    #Getting Url With Tags
+    #Logging In
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+    #Getting Url With Tags
     baseurl = ('https://idol.sankakucomplex.com/?tags=-animated+-video')
     endurl = ('&commit=Search')
     fullurl = (baseurl + '+' + msg + endurl)
@@ -41,6 +43,8 @@ async def wIdol(msg):
     leaveloop = 0
     
     #Getting all possible pages: Page2 = endswith(page=2)|Page3+ = startswith(/?next)
+    pagelinks.append("?tags=-animated+-video" + "+" + msg + "&page=1")
+    print(pagelinks[0])
     while(leaveloop != 1):
         nolinks = 0
         page = requests.get(fullurl, headers=headers)
