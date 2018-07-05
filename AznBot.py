@@ -37,10 +37,14 @@ async def wIdol(msg):
     pagetext = page.text
     soup = BeautifulSoup(pagetext, "lxml")
     links = []
+    count = 1
     #Adding Image URLs
     for link in soup.find_all('a'):
         if(link.get('href')):
             if(link.get('href').startswith("/post/show")):
+                print(count)
+                print(link.get('href'))
+                count += 1
                 links.append(link.get('href'))
             else:
                pass
