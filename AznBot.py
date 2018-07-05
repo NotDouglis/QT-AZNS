@@ -32,7 +32,50 @@ async def wIdol(msg):
     baseurl = ('https://idol.sankakucomplex.com/?tags=-animated+-video')
     endurl = ('&commit=Search')
     fullurl = (baseurl + '+' + msg + endurl)
-    #Requesting Data
+    #Requesting Data for Pages
+    page = requests.get(fullurl, headers=headers)
+    pagetext = page.text
+    soup = BeautifulSoup(pagetext, "lxml")
+    pagelinks = []
+    count = 1
+    leaveloop = 0
+    
+    #Getting all possible pages: Page2 = endswith(page=2)|Page3+ = startswith(/?next)
+    while(leaveloop != 1):
+        nolinks = 0
+        page = requests.get(fullurl, headers=headers)
+        pagetext = page.text
+        soup = BeautifulSoup(pagetext, "lxml")
+        for link in soup.find_all('a'):
+            if(link.get('href')):
+                if(link.get('href').startswith("/?next")):
+                    print("Next If")
+                    print(count)
+                    print(link.get('href'))
+                    fullurl = ('https://idol.sankakucomplex.com' + link.get('href'))
+                    count += 1
+                    pagelinks.append(link.get('href'))
+                    nolinks = 1
+                    
+                elif(link.get('href').endswith("page=2")):
+                    print("Page2 If")
+                    print(count)
+                    print(link.get('href'))
+                    fullurl = ('https://idol.sankakucomplex.com' + link.get('href'))
+                    count += 1  
+                    pagelinks.append(link.get('href'))
+                    nolinks = 1
+                else:
+                    pass
+                
+        if(nolinks == 0):
+            leaveloop = 1
+            pass
+    
+    #Requesting Data for Images
+    pageurl = (random.choice(pagelinks))
+    print('-')
+    print(pageurl)
     page = requests.get(fullurl, headers=headers)
     pagetext = page.text
     soup = BeautifulSoup(pagetext, "lxml")
