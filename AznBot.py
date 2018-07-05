@@ -27,16 +27,22 @@ async def wWikipedia(msg):
 
 @bot.command()
 async def wIdol(msg):
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     baseurl = ('https://idol.sankakucomplex.com/?tags=-animated+-video')
     endurl = ('&commit=Search')
     fullurl = (baseurl + '+' + msg + endurl)
-    soup = BeautifulSoup(urlopen(fullurl).read())
+    page = requests.get(fullurl, headers=headers)
+    pagetext = page.text
+    soup = BeautifulSoup(pagetext, "lxml")
     images = []
-    for img in soup.findAll('img'):
+    num = 1
+    for img in soup.find_all('img'):
         images.append(img.get('src'))
     imageurl = (random.choice(images))
+    fixedimageurl = ("https:"+imageurl)
+    print(fixedimageurl)
     embed = discord.Embed(title="QT Azn")
-    embed.set_image(url=imageurl)
+    embed.set_image(url=fixedimageurl)     
     await bot.say(embed=embed)
     
 #Memes
@@ -80,7 +86,7 @@ async def Help():
     #Help
     embed.add_field(name="Meme Commands",value="mP-->Points the classical pointy finger at your target\nmSex-->Spells out the classical SEX meme")
     embed.add_field(name="Random/Test Commands",value="rCoin-->Flips a coin, heads or tails, buddy.\nrRng(MinNumber, MaxNumber)-->Generates a random number between the provided integers")
-    embed.add_field(name="Webcrawling Commands",value="wWikipedia(ArticleName)-->Takes data from the given article")
+    embed.add_field(name="Webcrawling Commands",value="wWikipedia(ArticleName)-->Takes data from the given article\nwIdol(TagName)-->Returns a random image from Idol Complex with the given tag")
     await bot.say(embed=embed)
 
 #Code to connect py with bot
