@@ -14,5 +14,4 @@ def aznCrawl(toprint = None):
     else:
         print(toprint)
 
-
 aznCrawl("YE")
