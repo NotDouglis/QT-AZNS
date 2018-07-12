@@ -34,56 +34,67 @@ async def wCML(Username: str,Skill: str,Time: str):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     initialurl = "https://crystalmathlabs.com/tracker/track.php?player="
     playerurl = (initialurl + Username)
+    TimeStr = "1 Week"
+    if(Time.lower() == 'd'):
+        playerurl += "&time=1d"
+        TimeStr = "1 Day"
+        
+    elif(Time.lower() == 'w'):
+        pass
+    
+    elif(Time.lower() == 'm'):
+        playerurl += "&time=31d"
+        TimeStr = "1 Month"
+
+    elif(Time.lower() == 'y'):
+        playerurl += "&time=365d"
+        TimeStr = "1 Year"
+
+    elif(Time.lower() == 'a'):
+        playerurl += "&time=all"
+        TimeStr = "All Time"
+        
     page = requests.get(playerurl, headers=headers)
     pagetext = page.text
     soup = BeautifulSoup(pagetext, "lxml")
     content = soup.find(id="content")
     strcontent = (str(content))
     SkillFound = 0
+
     #Check If User Exists - Done
     if ("No data" in strcontent):
         embed = discord.Embed(title="Error")
         embed.add_field(name="You messed up!", value="User doesn't exist")    
         await bot.say(embed=embed)
     else:
-        print("User Exists")
-        #Check If Skill Exists - Not Done
-        content = soup.find('a').text
-        if(Skill.lower() in strcontent.lower()):
-            #Get Skill Data - Done
-            for tr in soup.findAll("tr", class_="evenstatsrow"):
-                content = soup.findAll("tr", class_="evenstatsrow")
-                #Get Row where skill is
-                if(tr.find('a').text.lower() == Skill.lower()):
-                    #Get Individual Table Data
-                    tdarray = []
-                    for td in tr:
-                        tdarray.append(td)                 
-                    SkillName = tdarray[0].find('img').get('title')
-                    SkillImage = "https://crystalmathlabs.com/tracker/" + tdarray[0].find('img').get('src')
-                    XPGained = tdarray[1].text
-                    print(SkillImage)
-                    print(SkillName)
-                    print(XPGained)
-                    SkillFound = 1
-                    embed = discord.Embed(title=""+Username+": "+SkillName)
-                    embed.set_image(url=SkillImage)
-                    embed.add_field(name="XP Gained",value=XPGained)    
-                    await bot.say(embed=embed)
-                    break
-                
-            if(SkillFound == 0):
-                embed = discord.Embed(title="Error")
-                embed.add_field(name="You messed up!", value="Skill doesn't exist")    
+        #Get Skill Data - Done
+        for tr in soup.findAll("tr"):
+            content = soup.findAll("tr")
+            print(tr)
+            #Get Row where skill is
+            if(tr.find('a').text.lower() == Skill.lower()):
+                #Get Individual Table Data
+                tdarray = []
+                for td in tr:
+                    tdarray.append(td)                 
+                SkillName = tdarray[0].find('img').get('title')
+                SkillImage = "https://crystalmathlabs.com/tracker/" + tdarray[0].find('img').get('src')
+                XPGained = tdarray[1].text
+                print(SkillImage)
+                print(SkillName)
+                print(XPGained)
+                SkillFound = 1
+                embed = discord.Embed(title=""+Username+": "+SkillName+" - " + TimeStr)
+                embed.set_image(url=SkillImage)
+                embed.add_field(name="XP Gained",value=XPGained)    
                 await bot.say(embed=embed)
-
-                    
-
-        else:
-            embed = discord.Embed(title="Error")
+                break
+                
+        if(SkillFound == 0):
+            embed = discord.Embed(title="Error2")
             embed.add_field(name="You messed up!", value="Skill doesn't exist")    
             await bot.say(embed=embed)
-            
+
         
     
 @bot.command()
