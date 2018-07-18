@@ -82,10 +82,13 @@ def GenerateDescription(SituationArray):
         DescriptionString += ""
     return DescriptionString
 
+#Store Situations
+Situations = []
 #Setup Situation and Options
 SituationArray = GenerateSituation()
 UserOptions = GenerateOptions(SituationArray)
 Description = GenerateDescription(SituationArray)
+Situations.append(SituationArray)
 
 #Test Area
 print("")
