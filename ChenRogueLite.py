@@ -43,12 +43,43 @@ def GenerateOptions(SituationArray):
     return UserOptions
 
 def GenerateDescription(SituationArray):
+    #Beginning
     DescriptionString = "You are in a "
 
+    #Dark or Lit
     if(SituationArray[0] == 1):
-        DescriptionString += "Dark Room"
+        DescriptionString += "Dark Room."
     else:
-        DescriptionString += "Room"
+        DescriptionString += "Room."
+
+    DescriptionString += " You can go "
+    
+    #Directions
+    if(SituationArray[1] == 1):
+        DescriptionString += "North"
+    else:
+        DescriptionString += ""
+
+    if(SituationArray[2] == 1):
+        if(SituationArray[1] == 1):
+            DescriptionString += ", "
+        DescriptionString += "South"
+    else:
+        DescriptionString += ""
+
+    if(SituationArray[3] == 1):
+        if(SituationArray[1] == 1 or SituationArray[2] == 1):
+            DescriptionString += ", "
+        DescriptionString += "East"
+    else:
+        DescriptionString += ""
+
+    if(SituationArray[4] == 1):
+        if(SituationArray[1] == 1 or SituationArray[2] == 1 or SituationArray[3] or 1 ):
+            DescriptionString += ", "
+        DescriptionString += "West"
+    else:
+        DescriptionString += ""
     return DescriptionString
 
 #Setup Situation and Options
