@@ -95,6 +95,8 @@ print("")
 print(Description)
 print("")
 print("Potential Options:")
+Count = 1
 for x in UserOptions:
-    print(x)
+    print(Count,":",x)
+    Count+=1
 
