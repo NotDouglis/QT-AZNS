@@ -70,7 +70,6 @@ async def wCML(Username: str,Skill: str,Time: str):
         #Get Skill Data - Done
         for tr in soup.findAll("tr"):
             content = soup.findAll("tr")
-            print(tr)
             #Get Row where skill is
             if(tr.find('a').text.lower() == Skill.lower()):
                 #Get Individual Table Data
@@ -80,9 +79,6 @@ async def wCML(Username: str,Skill: str,Time: str):
                 SkillName = tdarray[0].find('img').get('title')
                 SkillImage = "https://crystalmathlabs.com/tracker/" + tdarray[0].find('img').get('src')
                 XPGained = tdarray[1].text
-                print(SkillImage)
-                print(SkillName)
-                print(XPGained)
                 SkillFound = 1
                 embed = discord.Embed(title=""+Username+": "+SkillName+" - " + TimeStr)
                 embed.set_image(url=SkillImage)
@@ -247,3 +243,4 @@ async def Help():
     await bot.say(embed=embed)
 
 #Code to connect py with bot
+bot.run('NDY2NjMxNjgxNzk4MDQ1NzE2.Die4Og.PuqIvvcCTwK4X6YWY8zO-bd9v3c')
