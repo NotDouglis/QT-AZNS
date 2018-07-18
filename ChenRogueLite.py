@@ -19,8 +19,6 @@ def GenerateSituation():
         print(x , " = " , SituationArray[x])     
     return SituationArray
 
-SituationArray = GenerateSituation()
-
 #Generate Options based on the situation
 def GenerateOptions(SituationArray):
     UserOptions = []
@@ -44,8 +42,25 @@ def GenerateOptions(SituationArray):
         UserOptions.append("Attack")
     return UserOptions
 
-UserOptions = GenerateOptions(SituationArray)
+def GenerateDescription(SituationArray):
+    DescriptionString = "You are in a "
 
+    if(SituationArray[0] == 1):
+        DescriptionString += "Dark Room"
+    else:
+        DescriptionString += "Room"
+    return DescriptionString
+
+#Setup Situation and Options
+SituationArray = GenerateSituation()
+UserOptions = GenerateOptions(SituationArray)
+Description = GenerateDescription(SituationArray)
+
+#Test Area
+print("")
+print(Description)
+print("")
+print("Potential Options:")
 for x in UserOptions:
     print(x)
 
