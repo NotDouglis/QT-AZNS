@@ -82,21 +82,23 @@ def GenerateDescription(SituationArray):
         DescriptionString += ""
     return DescriptionString
 
-#Store Situations
-Situations = []
-#Setup Situation and Options
-SituationArray = GenerateSituation()
-UserOptions = GenerateOptions(SituationArray)
-Description = GenerateDescription(SituationArray)
-Situations.append(SituationArray)
+def SituationSetup():
+    #Setup
+    SituationArray = GenerateSituation()
+    UserOptions = GenerateOptions(SituationArray)
+    Description = GenerateDescription(SituationArray)
+    #Print
+    print("")
+    print(Description,"\n")
+    print("Potential Options:")
+    Count = 1
+    for x in UserOptions:
+        print(Count,":",x)
+        Count+=1
+    return SituationArray
 
-#Test Area
-print("")
-print(Description)
-print("")
-print("Potential Options:")
-Count = 1
-for x in UserOptions:
-    print(Count,":",x)
-    Count+=1
+#Setup Situation and Options
+CurrentSituation = SituationSetup()
+Situations = []
+Situations.append(CurrentSituation)
 
